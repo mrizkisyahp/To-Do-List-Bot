@@ -6,7 +6,7 @@ import asyncio
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from llm_handler import extract_tasks_from_text, get_priority_label
-from storage import load_tasks, save_tasks, add_tasks, delete_task, update_task, get_all_tasks
+from storage import load_tasks, save_tasks, add_tasks, delete_task, update_task, get_all_tasks, init_db
 
 load_dotenv()
 
@@ -187,6 +187,7 @@ async def reminder_loop():
 
 @bot.event
 async def on_ready():
+    init_db()
     print(f"✅ Bot online: {bot.user}")
     bot.loop.create_task(reminder_loop())
 
